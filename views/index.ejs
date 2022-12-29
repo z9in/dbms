@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrap">
+        <h1 class="title">고객정보관리</h1>
+        <form class="find" action="/find" method="post">
+            <label for="finding"></label>
+            <input type="text" id="finding" name="finding" placeholder="고객명으로 검색">
+            <input 
+            class="findSubmit"
+            type="submit" value="검색">
+            <a class="findSubmitAll" href="/">모두보기</a>
+        </form>
+    
+        <div class="output">
+            <h3>Total Posts: <%=user_info.length%></h3>
+            <table>
+                <tr>
+                    <th class="idEl"><p>id</p></th>
+                    <th class="nameEl"><p>name</p></th>
+                    <th class="ageEl"><p>age</p></th>
+                    <th class="sexEl"><p>sex</p></th>
+                    <th class="contactEl"><p>contact</p></th>
+                    <th class="buttonEl"></th>
+                </tr>
+                    <%for(i=user_info.length-1;i>=0;i--){%>
+                <tr>
+                    <form action="/delete/<%=user_info[i].id%>" onsubmit="let result = confirm('삭제하시겠습니까?'); if(!result) return false;"  method="post" >
+                    <td class="idEl"><p><%=user_info[i].id%></p></td>
+                    <td class="nameEl"><p class="names" data-item="<%=user_info[i].name%>"><%=user_info[i].name%></p></td>
+                    <td class="ageEl"><p><%=user_info[i].age%></p></td>
+                    <td class="sexEl"><p><%=user_info[i].sex%></p></td>
+                    <td class="contactEl"><p><%=user_info[i].contact%></p></td>
+                    <td class="buttonEl">
+                        <input class="outputSubmit" type="submit" value="삭제">
+                    </td>
+                    </form>
+                </tr>
+                    <%}%>
+            </table>
+        </div>
+    
+        <div class="input">
+            <h2>정보입력</h2>
+            <form action="/create" method="post">
+                <label for="name"></label>
+                <input type="text" id="name" name="name" placeholder="이름 입력">
+                <label for="age"></label>
+                <input type="number" max="100" id="age" name="age" placeholder="나이 입력">
+                <label for="sex" id="sex">
+                    <input type="radio" name="sex" value="남"
+                    checked="checked"> 남
+                <input type="radio" 
+                name="sex" value="여"> 여
+                </label>
+                
+                <label for="contact"></label>
+                <input type="phonenumber" 
+                id="contact"
+                name="contact" placeholder="연락처">
+                <input 
+                class="submit"
+                type="submit" value="추가">
+            </form>
+        </div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>
